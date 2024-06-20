@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, send_from_directory
 from utils.background import remove_bg_image, edit_and_remove_bg
 from os import getenv
-
+from usagelogger.flask import HttpLoggerForFlask
 
 app = Flask(__name__)
 
+app.wsgi_app = HttpLoggerForFlask(app=app.wsgi_app, rules="include debug")
 
 @app.route("/")
 def home():
