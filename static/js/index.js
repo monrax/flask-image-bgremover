@@ -28,7 +28,7 @@ Alpine?.store('viewer', {
             "image": this.preview
         }
         try {
-            const response = await axios.post("/removebg", body);
+            const response = await axios.post("/v1/remove", body);
             this.result = response?.data?.result;
         } catch (error) {
             console.error(error);

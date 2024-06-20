@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, request
 from utils.background import remove_bg_image, edit_and_remove_bg
 
 
@@ -10,7 +10,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/removebg", methods=["POST"])
+@app.route("/v1/remove", methods=["POST"])
 def remove_bg():
     image = request.json.get("image")
     if image is not None:
@@ -26,7 +26,7 @@ def remove_bg():
         return response
     return "Something went wrong!"
 
-@app.route("/editandremovebg", methods=["POST"])
+@app.route("/v2/remove", methods=["POST"])
 def edit_im_remove_bg():
     image = request.json.get("image")
     expression = request.json.get("expr")
