@@ -1,0 +1,123 @@
+openapi: '3.0.3'
+info:
+  title: BgRemover API
+  description: Image background removal API
+  version: '1.1.0'
+servers:
+  - url: http://localhost:8080
+    description: Local server
+components:
+  schemas:
+    string:
+      type: string
+    payload@v1:
+      type: object
+      properties:
+        image:
+          type: string
+          title: A base64-encoded image
+    payload@v2:
+      type: object
+      properties:
+        image:
+          type: string
+          title: A base64-encoded image
+        expr:
+          type: string
+          title: Image expression to apply before background removal
+  responses:
+    json:
+      description: JSON response
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/string'
+    yaml:
+      description: YAML response
+      content:
+        'text/yaml':
+          schema:
+            $ref: '#/components/schemas/string'
+    plain:
+      description: Plain text response
+      content:
+        'text/plain':
+          schema:
+            $ref: '#/components/schemas/string'
+    html:
+      description: HTML response
+      content:
+        'text/html':
+          schema:
+            $ref: '#/components/schemas/string'
+  parameters:
+    filepath:
+      name: filepath
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/string'
+paths:
+  /:
+    get:
+      description: Returns web UI or redirects to docs
+      summary: UI
+      responses:
+        '200':
+          $ref: '#/components/responses/html'
+        '302':
+          description: Redirect
+          headers:
+            Location:
+              schema:
+                type: string
+                enum:
+                  - '/docs'
+        default:
+          $ref: '#/components/responses/plain'
+  /v1/remove:
+    post:
+      description: Removes background from base64-encoded image
+      summary: Background removal
+      requestBody:
+        description: Image to modify
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payload@v1'
+      responses:
+        '200':
+          $ref: '#/components/responses/json'
+        default:
+          $ref: '#/components/responses/plain'
+  /v2/remove:
+    post:
+      description: Applies image expression to base64-encoded image and removes its background
+      summary: Background removal (v2)
+      requestBody:
+        description: Image to modify
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/payload@v2'
+      responses:
+        '200':
+          $ref: '#/components/responses/json'
+        default:
+          $ref: '#/components/responses/plain'
+  /docs:
+    get:
+      description: Returns rendered docs for OpenAPI definition
+      summary: Docs
+      responses:
+        '200':
+          $ref: '#/components/responses/html'
+  /openapi.yaml:
+    get:
+      description: Returns OpenAPI spec
+      summary: OAS 3.0 Spec
+      responses:
+        '200':
+          $ref: '#/components/responses/yaml'

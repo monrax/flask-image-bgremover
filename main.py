@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, send_from_directory
 from utils.background import remove_bg_image, edit_and_remove_bg
+from os import getenv
 
 
 app = Flask(__name__)
@@ -7,8 +8,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html") if getenv("ENABLE_UI") == "true" else redirect("/docs")
 
+@app.get("/docs")
+def get_docs():
+    return send_from_directory("static/spec", "redoc-static.html", mimetype="text/html")
+
+@app.get("/openapi.yaml")
+def get_spec():
+    return send_from_directory("static/spec", "openapi.yaml", mimetype="text/yaml")
 
 @app.route("/v1/remove", methods=["POST"])
 def remove_bg():
