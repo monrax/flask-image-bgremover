@@ -23,7 +23,8 @@
             <div class="container h-screen flex flex-col  gap-8 items-center justify-center">
                 <div class="flex flex-col md-flex-row gap-4">
                     <div class="w-full">
-                        <label for="preview" class="card img-card flex flex-col">
+                        <h3 class="py-3 flex justify-center">Original image</h3>
+                        <label for="preview" class="card img-card animate-card flex flex-col">
                             <template x-if="!!$store?.viewer?.preview">
                                 <img
                                     :src="$store.viewer.preview"
@@ -49,6 +50,7 @@
                         </button>
                     </div>
                     <div class="w-full">
+                        <h3 class="py-3 flex justify-center">Result preview</h3>
                         <div class="card img-card flex flex-col items-center justify-center">
                             <template x-if="!!$store.viewer.result && !$store.viewer.loading">
                                     <img
