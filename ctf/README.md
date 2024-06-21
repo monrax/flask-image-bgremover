@@ -46,7 +46,7 @@ open http://localhost:8080/docs
 curl -H "Content-type:application/json" -d '{"image": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAMUlEQVR4nGKRslBnwAYmG33GKs6EVRQPGNVADGB0sXuBVUJq0Rzq2DCqgRgACAAA///WdQUVuNf8NgAAAABJRU5ErkJggg=="}' http://localhost:8080/v1/remove > | jq -r '.result|ltrimstr("data:image/png;base64,")' | base64 -d > out.png
 ```
 
-Want to know more? Check out the API docs at [/docs](./docs/API.md).
+Want to know more? Check out the API docs at [/docs](https://github.com/monrax/flask-image-bgremover/blob/demo/ctf/docs/API.md).
 
 ## v2
 
