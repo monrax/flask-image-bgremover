@@ -1,0 +1,5 @@
+numpy<2
+Pillow==8.4.0
+Flask
+rembg==2.0.40
+usagelogger

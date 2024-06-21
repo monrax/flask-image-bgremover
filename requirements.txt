@@ -1,5 +1,4 @@
-numpy<2
-Pillow==8.4.0
+Pillow
 Flask
-rembg==2.0.40
+rembg
 usagelogger
