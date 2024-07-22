@@ -8,7 +8,7 @@ export PAYLOAD_FILE=$(pwd)/payload.py
 
 echo "Fetching sample image..."
 curl -L -o images/input.jpg "https://github.com/danielgatis/rembg/blob/main/examples/animal-1.jpg?raw=true"
-IMAGE_FILE=${1:-"images/input.jpg"}
+IMAGE_FILE=${2:-"images/input.jpg"}
 
 base64 $IMAGE_FILE | tr -d \\n | jq -Rn '.image = inputs' > input.json
 
